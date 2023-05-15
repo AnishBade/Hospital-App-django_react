@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { getpatient } from '../services/ApiService'
+import { getpatient,addpatient } from '../services/ApiService'
+import AddPatient from './AddPatient'
 
 export default function PatientList() {
   const [patients,setPatients] = useState([])
+  const [showAddPatientForm, setShowAddPatientForm] = useState(false)
 
   useEffect(()=>{
     let mount = true
@@ -13,6 +15,13 @@ export default function PatientList() {
       return() => mount =false
     })    
   }, [])
+
+  const handleAddSubmit= (e) => {
+      addpatient(e.target)
+      .then(res =>{
+        setPatients(res)
+      })
+  }
   return (
     <>
         <h3>Patient list</h3>
@@ -37,6 +46,9 @@ export default function PatientList() {
               
             </tbody>
         </table>
+
+        <button onClick={()=>setShowAddPatientForm(true)}>Add New Patient</button>
+        {showAddPatientForm && <AddPatient handleAddSubmit={handleAddSubmit}/> }
     </>
   )
 }
