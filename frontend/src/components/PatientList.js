@@ -16,6 +16,27 @@ export default function PatientList() {
   return (
     <>
         <h3>Patient list</h3>
+        <table border={"2px"} cellPadding={"10px"}>
+            <thead>
+              <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Blood Group</td>
+                <td>Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              {patients.map(patient=>{
+                return <tr key = {patient.patient_id}>
+                          <td>{patient.first_name}</td>
+                          <td>{patient.last_name}</td>
+                          <td>{patient.blood}</td>
+                          <td><button>Edit</button><button>Delete</button></td>
+                        </tr>
+              })}
+              
+            </tbody>
+        </table>
     </>
   )
 }
